@@ -8,9 +8,11 @@
 import SwiftData
 import OSLog
 
-// A mapping from posts from the URL to post items.
+// MARK: Initialization
+
 extension Post {
-    /// Creates a new quake instance from a decoded feature.
+    /// Creates a new post instance from a decoded collection item.
+    /// - Parameter postCollection: The data source for the post.
     convenience init(from postCollection: PostCollection) {
         self.init(
             id: postCollection.id,
@@ -22,21 +24,21 @@ extension Post {
     }
 }
 
-// Helper methods for loading post data from the URL and storing it as a post in the app.
+// MARK: Data Loading
+
 extension PostCollection {
-    /// A logger for debugging.
+    /// A logger for debugging purposes.
     fileprivate static let logger = Logger(subsystem: "com.example.PrimaryDetailSwift", category: "parsing")
 
-    /// Loads new posts.
+    /// Loads new posts from the server and updates the model context.
+    /// - Parameter modelContext: The context where post data is stored.
     @MainActor
     static func refresh(modelContext: ModelContext) async {
         do {
-            // Fetch posts from the URL.
             logger.debug("Refreshing the data store...")
             let postCollection = try await fetchPosts()
             logger.debug("Loaded posts.")
 
-            // Add the content to the data store.
             for serverPost in postCollection {
                 let post = Post(from: serverPost)
 

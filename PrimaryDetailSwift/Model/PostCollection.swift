@@ -22,17 +22,26 @@ import Foundation
 /// ]
 /// ```
 struct PostCollection: Decodable {
+    
+    // MARK: Properties
+    
+    /// The user ID associated with the post.
     let userId: Int
+    /// The unique identifier of the post.
     let id: Int
+    /// The title of the post.
     let title: String
+    /// The body content of the post.
     let body: String
 }
 
-// Fetch new posts.
+// MARK: Fetching
+
 extension PostCollection {
     /// Gets and decodes posts from the URL.
+    /// - Returns: An array of `PostCollection` objects.
+    /// - Throws: `DownloadError` if data is missing or format is wrong.
     static func fetchPosts() async throws -> [PostCollection] {
-        /// Sample JSON
         let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
 
         let session = URLSession.shared
@@ -44,7 +53,6 @@ extension PostCollection {
         }
 
         do {
-            // Decode the JSON into a data model.
             let jsonDecoder = JSONDecoder()
             jsonDecoder.dateDecodingStrategy = .millisecondsSince1970
             return try jsonDecoder.decode([PostCollection].self, from: data)
@@ -54,8 +62,12 @@ extension PostCollection {
     }
 }
 
+// MARK: Error Handling
+
 /// The kinds of errors that occur when loading posts.
 enum DownloadError: Error {
+    /// Indicates that the data format is incorrect.
     case wrongDataFormat(error: Error)
+    /// Indicates that the data is missing.
     case missingData
 }

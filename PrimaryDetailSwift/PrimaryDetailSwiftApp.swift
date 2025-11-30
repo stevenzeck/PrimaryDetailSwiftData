@@ -8,8 +8,13 @@
 import SwiftUI
 import SwiftData
 
+/// The main entry point for the PrimaryDetailSwift application.
 @main
 struct PrimaryDetailSwiftApp: App {
+    
+    // MARK: Properties
+    
+    /// The shared model container for managing data persistence.
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Post.self,
@@ -23,6 +28,9 @@ struct PrimaryDetailSwiftApp: App {
         }
     }()
 
+    // MARK: Body
+    
+    /// The scene that contains the app's window group.
     var body: some Scene {
         WindowGroup {
             ContentView()

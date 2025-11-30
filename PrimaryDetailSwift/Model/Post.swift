@@ -8,7 +8,11 @@
 import Foundation
 import SwiftData
 
+/// A model representing a post.
 @Model class Post {
+    
+    // MARK: Properties
+    
     /// A unique identifier associated with each post.
     @Attribute(.unique) var id: Int = 0
     /// The user ID of the post.
@@ -20,6 +24,15 @@ import SwiftData
     /// Whether the post has been read or not.
     var read: Bool
     
+    // MARK: Initialization
+    
+    /// Initializes a new Post instance.
+    /// - Parameters:
+    ///   - id: The unique identifier.
+    ///   - userId: The user ID.
+    ///   - title: The post title.
+    ///   - body: The post body.
+    ///   - read: The read status.
     init(id: Int, userId: Int, title: String, body: String, read: Bool) {
         self.id = id
         self.userId = userId
@@ -29,4 +42,7 @@ import SwiftData
     }
 }
 
+// MARK: Identifiable
+
+/// Conforms Post to the Identifiable protocol.
 extension Post: Identifiable {}
