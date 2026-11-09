@@ -28,7 +28,10 @@ struct ContentView: View {
             // List of posts.
             List(selection: $selectedPosts) {
                 ForEach(posts) { post in
-                    NavigationLink(post.title, value: post)
+                    NavigationLink(value: post) {
+                        Text(post.title)
+                            .fontWeight(post.read ? .regular : .bold)
+                    }
                 }
                 // Enables swipe-to-delete functionality.
                 .onDelete(perform: deleteItems)

@@ -49,8 +49,14 @@ actor PostDataHandler {
             return
         }
 
+        let readDescriptor = FetchDescriptor<Post>(predicate: #Predicate { $0.read })
+        let readPostIDs = Set((try? modelContext.fetch(readDescriptor))?.map(\.id) ?? [])
+
         for serverPost in postCollection {
             let post = Post(from: serverPost)
+            if readPostIDs.contains(serverPost.id) {
+                post.read = true
+            }
 
             Self.logger.debug("Inserting post.")
             modelContext.insert(post)

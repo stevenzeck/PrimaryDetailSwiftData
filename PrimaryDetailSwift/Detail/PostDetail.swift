@@ -44,6 +44,11 @@ struct PostDetail: View {
         // Sets the title display mode to inline.
         .navigationBarTitleDisplayMode(.inline)
         #endif
+        .onChange(of: selectedPost, initial: true) { _, newPost in
+            if let newPost, !newPost.read {
+                newPost.read = true
+            }
+        }
     }
 }
 
