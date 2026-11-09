@@ -9,12 +9,14 @@ import Foundation
 import SwiftData
 
 /// A model representing a post.
-@Model class Post {
-    
+@Model final class Post {
+    #Unique<Post>([\.id])
+    #Index<Post>([\.id], [\.userId], [\.read])
+
     // MARK: Properties
-    
+
     /// A unique identifier associated with each post.
-    @Attribute(.unique) var id: Int = 0
+    var id: Int = 0
     /// The user ID of the post.
     var userId: Int = 0
     /// The title of the post.
@@ -23,9 +25,9 @@ import SwiftData
     var body: String
     /// Whether the post has been read or not.
     var read: Bool
-    
+
     // MARK: Initialization
-    
+
     /// Initializes a new Post instance.
     /// - Parameters:
     ///   - id: The unique identifier.

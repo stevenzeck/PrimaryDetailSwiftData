@@ -13,8 +13,6 @@
 		9585F8B62C35B4CD005E709D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9585F8B52C35B4CD005E709D /* Assets.xcassets */; };
 		9585F8BA2C35B4CD005E709D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9585F8B92C35B4CD005E709D /* Preview Assets.xcassets */; };
 		9585F8C42C35B4CD005E709D /* PrimaryDetailSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8C32C35B4CD005E709D /* PrimaryDetailSwiftTests.swift */; };
-		9585F8CE2C35B4CD005E709D /* PrimaryDetailSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8CD2C35B4CD005E709D /* PrimaryDetailSwiftUITests.swift */; };
-		9585F8D02C35B4CD005E709D /* PrimaryDetailSwiftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8CF2C35B4CD005E709D /* PrimaryDetailSwiftUITestsLaunchTests.swift */; };
 		9585F8E12C35B7C7005E709D /* PostDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8E02C35B7C7005E709D /* PostDetail.swift */; };
 		9585F8E32C35BF2A005E709D /* PostCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8E22C35BF2A005E709D /* PostCollection.swift */; };
 		9585F8E52C35BF60005E709D /* Post+PostCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585F8E42C35BF60005E709D /* Post+PostCollection.swift */; };
@@ -48,8 +46,6 @@
 		9585F8BF2C35B4CD005E709D /* PrimaryDetailSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimaryDetailSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9585F8C32C35B4CD005E709D /* PrimaryDetailSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryDetailSwiftTests.swift; sourceTree = "<group>"; };
 		9585F8C92C35B4CD005E709D /* PrimaryDetailSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimaryDetailSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9585F8CD2C35B4CD005E709D /* PrimaryDetailSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryDetailSwiftUITests.swift; sourceTree = "<group>"; };
-		9585F8CF2C35B4CD005E709D /* PrimaryDetailSwiftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryDetailSwiftUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9585F8E02C35B7C7005E709D /* PostDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetail.swift; sourceTree = "<group>"; };
 		9585F8E22C35BF2A005E709D /* PostCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollection.swift; sourceTree = "<group>"; };
 		9585F8E42C35BF60005E709D /* Post+PostCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Post+PostCollection.swift"; sourceTree = "<group>"; };
@@ -133,8 +129,6 @@
 		9585F8CC2C35B4CD005E709D /* PrimaryDetailSwiftUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9585F8CD2C35B4CD005E709D /* PrimaryDetailSwiftUITests.swift */,
-				9585F8CF2C35B4CD005E709D /* PrimaryDetailSwiftUITestsLaunchTests.swift */,
 			);
 			path = PrimaryDetailSwiftUITests;
 			sourceTree = "<group>";
@@ -316,8 +310,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9585F8D02C35B4CD005E709D /* PrimaryDetailSwiftUITestsLaunchTests.swift in Sources */,
-				9585F8CE2C35B4CD005E709D /* PrimaryDetailSwiftUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +387,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -448,6 +442,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -472,17 +468,17 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -508,17 +504,17 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -526,20 +522,19 @@
 		9585F8D72C35B4CD005E709D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrimaryDetailSwift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PrimaryDetailSwift";
 			};
@@ -548,20 +543,19 @@
 		9585F8D82C35B4CD005E709D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrimaryDetailSwift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PrimaryDetailSwift";
 			};
@@ -570,19 +564,18 @@
 		9585F8DA2C35B4CD005E709D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwiftUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PrimaryDetailSwift;
 			};
@@ -591,19 +584,18 @@
 		9585F8DB2C35B4CD005E709D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.PrimaryDetailSwiftUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = PrimaryDetailSwift;
 			};

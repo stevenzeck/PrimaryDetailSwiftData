@@ -5,31 +5,56 @@
 //  Created by Steven Zeck on 7/3/24.
 //
 
-import XCTest
+import Foundation
+@testable import PrimaryDetailSwift
+import SwiftData
+import Testing
 
-final class PrimaryDetailSwiftTests: XCTestCase {
+@Suite("Post & Persistence Tests")
+struct PrimaryDetailSwiftTests {
+    @Test("Decodes PostCollection JSON and initializes Post model")
+    func decodeAndInitializePost() throws {
+        let json = """
+        [
+            {
+                "userId": 1,
+                "id": 42,
+                "title": "Swift Testing",
+                "body": "Testing modern Swift features."
+            }
+        ]
+        """
+        let data = try #require(json.data(using: .utf8))
+        let decoded = try JSONDecoder().decode([PostCollection].self, from: data)
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        #expect(decoded.count == 1)
+        let firstItem = try #require(decoded.first)
+
+        let post = Post(from: firstItem)
+        #expect(post.id == 42)
+        #expect(post.userId == 1)
+        #expect(post.title == "Swift Testing")
+        #expect(post.body == "Testing modern Swift features.")
+        #expect(!post.read)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    @Test("Enforces #Unique constraint on Post.id in SwiftData")
+    @MainActor
+    func uniquePostConstraint() throws {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Post.self, configurations: config)
+        let context = container.mainContext
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+        let original = Post(id: 1, userId: 1, title: "Original Title", body: "Original Body", read: false)
+        let updated = Post(id: 1, userId: 1, title: "Updated Title", body: "Updated Body", read: true)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+        context.insert(original)
+        context.insert(updated)
+        try context.save()
 
+        let fetched = try context.fetch(FetchDescriptor<Post>())
+        #expect(fetched.count == 1)
+        #expect(fetched.first?.title == "Updated Title")
+        #expect(fetched.first?.read == true)
+    }
 }

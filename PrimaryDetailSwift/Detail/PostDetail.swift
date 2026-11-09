@@ -10,24 +10,29 @@ import SwiftUI
 
 /// A view that displays the details of a specific post.
 struct PostDetail: View {
-    
     // MARK: Properties
-    
+
     /// The post to display details for.
     let selectedPost: Post?
-    
+
     // MARK: Body
-    
+
     /// The content and behavior of the view.
     var body: some View {
-        ScrollView {
+        Group {
             if let post = selectedPost {
-                Text(post.title)
-                    .font(.title)
-                Text(post.body)
-                    .font(.body)
+                ScrollView {
+                    Text(post.title)
+                        .font(.title)
+                    Text(post.body)
+                        .font(.body)
+                }
             } else {
-                Text("Select a post to view details")
+                ContentUnavailableView(
+                    "Select a Post",
+                    systemImage: "doc.text",
+                    description: Text("Select a post to view details")
+                )
             }
         }
         #if os(macOS)
@@ -40,4 +45,20 @@ struct PostDetail: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
     }
+}
+
+// MARK: Preview
+
+// A preview for the PostDetail view.
+#Preview {
+    PostDetail(
+        selectedPost: Post(
+            id: 1,
+            userId: 1,
+            title: "Sample Post Title",
+            body: "Sample post body content.",
+            read: false
+        )
+    )
+    .modelContainer(for: Post.self, inMemory: true)
 }

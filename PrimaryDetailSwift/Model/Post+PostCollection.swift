@@ -5,8 +5,8 @@
 //  Created by Steven Zeck on 7/3/24.
 //
 
-import SwiftData
 import OSLog
+import SwiftData
 
 // MARK: Initialization
 
@@ -26,30 +26,51 @@ extension Post {
 
 // MARK: Data Loading
 
-extension PostCollection {
+/// A background model actor that fetches and persists posts off the main actor.
+@ModelActor
+actor PostDataHandler {
     /// A logger for debugging purposes.
     fileprivate static let logger = Logger(subsystem: "com.example.PrimaryDetailSwift", category: "parsing")
 
-    /// Loads new posts from the server and updates the model context.
-    /// - Parameter modelContext: The context where post data is stored.
-    @MainActor
-    static func refresh(modelContext: ModelContext) async {
+    /// Loads new posts from the server and updates the actor's model context.
+    func refresh() async {
+        let postCollection: [PostCollection]
         do {
-            logger.debug("Refreshing the data store...")
-            let postCollection = try await fetchPosts()
-            logger.debug("Loaded posts.")
-
-            for serverPost in postCollection {
-                let post = Post(from: serverPost)
-
-                logger.debug("Inserting post.")
-                modelContext.insert(post)
+            Self.logger.debug("Refreshing the data store...")
+            postCollection = try await PostCollection.fetchPosts()
+            Self.logger.debug("Loaded posts.")
+        } catch {
+            switch error {
+            case .missingData:
+                Self.logger.error("Failed to refresh posts: missing data from server.")
+            case let .wrongDataFormat(underlyingError):
+                Self.logger.error("Failed to decode posts: \(underlyingError.localizedDescription)")
             }
-
-            logger.debug("Refresh complete.")
-
-        } catch let error {
-            logger.error("\(error.localizedDescription)")
+            return
         }
+
+        for serverPost in postCollection {
+            let post = Post(from: serverPost)
+
+            Self.logger.debug("Inserting post.")
+            modelContext.insert(post)
+        }
+
+        do {
+            try modelContext.save()
+            Self.logger.debug("Refresh complete.")
+        } catch {
+            Self.logger.error("Failed to save posts: \(error.localizedDescription)")
+        }
+    }
+}
+
+extension PostCollection {
+    /// Loads new posts from the server and updates the model container on a background actor.
+    /// - Parameter modelContainer: The container where post data is stored.
+    @concurrent
+    static func refresh(modelContainer: ModelContainer) async {
+        let handler = PostDataHandler(modelContainer: modelContainer)
+        await handler.refresh()
     }
 }

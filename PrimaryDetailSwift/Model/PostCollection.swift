@@ -22,9 +22,8 @@ import Foundation
 /// ]
 /// ```
 struct PostCollection: Decodable {
-    
     // MARK: Properties
-    
+
     /// The user ID associated with the post.
     let userId: Int
     /// The unique identifier of the post.
@@ -41,7 +40,8 @@ extension PostCollection {
     /// Gets and decodes posts from the URL.
     /// - Returns: An array of `PostCollection` objects.
     /// - Throws: `DownloadError` if data is missing or format is wrong.
-    static func fetchPosts() async throws -> [PostCollection] {
+    @concurrent
+    static func fetchPosts() async throws(DownloadError) -> [PostCollection] {
         let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
 
         let session = URLSession.shared
