@@ -19,6 +19,10 @@ struct ContentView: View {
 
     /// The currently selected posts (supports both single navigation selection and multi-selection in Edit mode).
     @State private var selectedPosts: Set<Post> = []
+    #if os(iOS)
+        /// The current edit mode of the list on iOS.
+        @State private var editMode: EditMode = .inactive
+    #endif
 
     // MARK: Body
 
@@ -27,7 +31,7 @@ struct ContentView: View {
         NavigationSplitView {
             // List of posts.
             List(selection: $selectedPosts) {
-                ForEach(posts) { post in
+                ForEach(posts, id: \.self) { post in
                     NavigationLink(value: post) {
                         Text(post.title)
                             .fontWeight(post.read ? .regular : .bold)
@@ -45,21 +49,35 @@ struct ContentView: View {
                     )
                 }
             }
-            // Adds an edit button on iOS and a batch delete button when posts are selected.
+            // Adds an edit button on iOS and a batch delete button when editing.
             .toolbar {
                 #if os(iOS)
                     ToolbarItem(placement: .navigationBarLeading) {
                         EditButton()
                     }
-                #endif
-                if !selectedPosts.isEmpty {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button(role: .destructive, action: deleteSelectedPosts) {
-                            Label("Delete Selected", systemImage: "trash")
+                    if editMode.isEditing, !selectedPosts.isEmpty {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button(role: .destructive, action: deleteSelectedPosts) {
+                                Label("Delete Selected", systemImage: "trash")
+                            }
                         }
                     }
-                }
+                #else
+                    if !selectedPosts.isEmpty {
+                        ToolbarItem(placement: .primaryAction) {
+                            Button(role: .destructive, action: deleteSelectedPosts) {
+                                Label("Delete Selected", systemImage: "trash")
+                            }
+                        }
+                    }
+                #endif
             }
+            #if os(iOS)
+            .environment(\.editMode, $editMode)
+            .onChange(of: editMode) { _, _ in
+                selectedPosts.removeAll()
+            }
+            #endif
             #if os(macOS)
             .onDeleteCommand(perform: deleteSelectedPosts)
             #endif
